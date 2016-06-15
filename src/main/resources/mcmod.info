@@ -1,0 +1,18 @@
+[{
+    "modid": "Thump-Service-CurseVoice",
+    "name": "Thump CurseVoice Service",
+    "description": "Curse Voice support for Thump",
+    "version": "${version}",
+    "mcversion": "${minecraft_version}",
+    "url": "http://minecraft.curseforge.com/mc-mods/231124-thump",
+    "updateUrl": "",
+    "authorList": ["carrot"],
+    "credits": "carrot",
+    "logoFile": "assets/thump/textures/logo.png",
+    "screenshots": [],
+    "parent": "Thump",
+    "requiredMods": [],
+    "dependencies": [],
+    "dependants": [],
+    "useDependencyInformation": "false"
+}]
