@@ -11,6 +11,7 @@ import com.feed_the_beast.javacurselib.service.sessions.sessions.CreateSessionRe
 import com.feed_the_beast.javacurselib.utils.CurseGUID;
 import com.feed_the_beast.javacurselib.websocket.WebSocket;
 import com.feed_the_beast.javacurselib.websocket.messages.notifications.NotificationsServiceContractType;
+import engineer.carrot.warren.thump.api.IThumpMinecraftSink;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -30,13 +31,15 @@ public class CurseIntegration {
     private String serverName;
     private String channelName;
     private CurseGUID channel;
+    private IThumpMinecraftSink sink;
 
-    public CurseIntegration (String username, String password, String serverName, String channelName) {
+    public CurseIntegration (String username, String password, String serverName, String channelName, IThumpMinecraftSink sink) {
         this.username = username;
         this.password = password;
         this.serverName = serverName;
         this.channelName = channelName;
         endpoints = new RestUserEndpoints();
+        this.sink = sink;
 
     }
 
@@ -56,6 +59,10 @@ public class CurseIntegration {
         this.serverName = name;
     }
 
+    public void setSink (IThumpMinecraftSink sink) {
+        this.sink = sink;
+    }
+
     public void init () {
         try {
             CountDownLatch latch = new CountDownLatch(1);
@@ -66,7 +73,7 @@ public class CurseIntegration {
             session = endpoints.session.create(new CreateSessionRequest(CurseGUID.newRandomUUID(), DevicePlatform.UNKNOWN)).get();
             channel = contacts.getChannelIdbyNames(serverName, channelName).get();
             webSocket = new WebSocket(loginResponse, session, new URI(Apis.NOTIFICATIONS));
-            webSocket.addTask(new CurseMessage(), NotificationsServiceContractType.CONVERSATION_MESSAGE_NOTIFICATION);
+            webSocket.addTask(new CurseMessage(sink), NotificationsServiceContractType.CONVERSATION_MESSAGE_NOTIFICATION);
             webSocket.start();
             latch.await();
         } catch (InterruptedException | ExecutionException | URISyntaxException e) {

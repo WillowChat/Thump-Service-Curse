@@ -1,26 +1,36 @@
 package engineer.carrot.warren.thump.cursevoice
 
-import com.feed_the_beast.javacurselib.common.enums.DevicePlatform
-import com.feed_the_beast.javacurselib.rest.REST
-import com.feed_the_beast.javacurselib.service.logins.login.LoginRequest
-import com.feed_the_beast.javacurselib.service.logins.login.LoginResponse
-import com.feed_the_beast.javacurselib.service.sessions.sessions.CreateSessionRequest
-import com.feed_the_beast.javacurselib.utils.CurseGUID
-import engineer.carrot.warren.thump.api.*
+import engineer.carrot.warren.thump.api.IThumpMinecraftSink
+import engineer.carrot.warren.thump.api.IThumpServicePlugin
+import engineer.carrot.warren.thump.api.ThumpPluginContext
+import engineer.carrot.warren.thump.api.ThumpServicePlugin
 import engineer.carrot.warren.thump.cursevoice.command.CurseVoicePluginCommandHandler
 import engineer.carrot.warren.thump.helper.LogHelper
-import retrofit2.adapter.java8.HttpException
 
 @ThumpServicePlugin
 object CurseVoicePlugin : IThumpServicePlugin {
     override val id = "cursevoice"
     override val commandHandler = CurseVoicePluginCommandHandler()
     private lateinit var sink: IThumpMinecraftSink
-    private lateinit var integration : CurseIntegration
+    private lateinit var username: String
+    private lateinit var integration: CurseIntegration
 
     override fun configure(context: ThumpPluginContext) {
         sink = context.minecraftSink
-        integration = CurseIntegration("username", "password")
+        val config = context.configuration
+        config.load()
+        val CREDENTIALS_CATEGORY = "credentials"
+        val CONNECTION_CATEGORY = "connection"
+        username = config.get(CREDENTIALS_CATEGORY, "username", "username", "username for curseapp").string
+        val password = config.get(CREDENTIALS_CATEGORY, "password", "password", "password for curseapp").string
+        val server = config.get(CONNECTION_CATEGORY, "server", "server", "server to use for curseapp").string
+        val channel = config.get(CONNECTION_CATEGORY, "channel", "channel", "channel for curseapp").string
+
+        if (config.hasChanged())
+            config.save()
+
+
+        integration = CurseIntegration(username, password, server, channel, sink)
 
         LogHelper.info("Curse Voice plugin configured")
     }
@@ -45,7 +55,7 @@ object CurseVoicePlugin : IThumpServicePlugin {
     }
 
     override fun anyConnectionsMatch(name: String): Boolean {
-        return false
+        return name.equals(username)
     }
 
 }
