@@ -59,7 +59,7 @@ public class CurseIntegration {
     public void sendToCurse (String message) {
         if (thread != null && thread.webSocket != null && thread.channel != null) {
             if (message == null) {
-               LogHelper.info("Don't attempt to send null messages!!!!!");
+                LogHelper.info("Don't attempt to send null messages!!!!!");
             } else {
                 thread.webSocket.sendMessage(thread.channel, message);
             }
@@ -70,7 +70,9 @@ public class CurseIntegration {
 
     public void shutdown () {
         //TODO logout??
-        thread.interrupt();
+        if (thread != null) {
+            thread.interrupt();
+        }
     }
 
 }
