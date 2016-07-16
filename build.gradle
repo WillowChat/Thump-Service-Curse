@@ -16,7 +16,7 @@ buildscript {
 repositories {
     maven { // Hopper Maven repo
         name 'Hopper'
-        url "https://maven.hopper.bunnies.io/"
+        url "http://maven.hopper.bunnies.io/"
     }
 }
 
@@ -66,7 +66,7 @@ configurations {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar']) //TODO swap this for maven access to javacurselib once publicly released
+    shade fileTree(dir: 'libs', include: ['*.jar']) //TODO swap this for maven access to javacurselib once publicly released
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile group: 'org.slf4j', name:'slf4j-api', version: '1.7.21' //shaded in javacurselib mc jar already
     deobfCompile "engineer.carrot.warren.thump:Thump:$thump_version"
