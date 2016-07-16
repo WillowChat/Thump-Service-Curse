@@ -6,6 +6,7 @@ import com.feed_the_beast.javacurselib.websocket.messages.handler.tasks.Task;
 import com.feed_the_beast.javacurselib.websocket.messages.notifications.ConversationMessageNotification;
 import engineer.carrot.warren.thump.api.IThumpMinecraftSink;
 import engineer.carrot.warren.thump.helper.LogHelper;
+import engineer.carrot.warren.thump.helper.StringHelper;
 import engineer.carrot.warren.thump.helper.TokenHelper;
 
 import javax.annotation.Nonnull;
@@ -31,10 +32,9 @@ public class CurseMessage implements Task<ConversationMessageNotification> {
             case GROUP: {
                 LogHelper.info("serverID {} channelID {} from {}, Msg: {}", response.rootConversationID, response.conversationID, response.senderName, response.body);
                 TokenHelper t = new TokenHelper();
-                //var output = TokenHelper().addUserToken(nick).addChannelToken(event.channel.toString()).addMessageToken(event.message).applyTokens(IrcServicePlugin.configuration.formats.channelMessage)
                 String s = t.addUserToken(response.senderName).addMessageToken(response.body).addChannelToken(channelName).addServerToken(serverName)
                         .applyTokens(CurseVoicePlugin.curseToMcMessageFormat);
-                //IrcServicePlugin.configuration.formats.getChannelMessage()
+                StringHelper.INSTANCE.stripBlacklistedIRCCharacters(s);
                 sink.sendToAllPlayers(response.senderName, s);
                 break;
             }
