@@ -14,6 +14,7 @@ object CurseVoicePlugin : IThumpServicePlugin {
     private lateinit var sink: IThumpMinecraftSink
     private lateinit var username: String
     private lateinit var integration: CurseIntegration
+    public lateinit var curseToMcMessageFormat: String
 
     override fun configure(context: ThumpPluginContext) {
         sink = context.minecraftSink
@@ -21,10 +22,13 @@ object CurseVoicePlugin : IThumpServicePlugin {
         config.load()
         val CREDENTIALS_CATEGORY = "credentials"
         val CONNECTION_CATEGORY = "connection"
-        username = config.get(CREDENTIALS_CATEGORY, "username", "username", "username for curseapp").string
-        val password = config.get(CREDENTIALS_CATEGORY, "password", "password", "password for curseapp").string
+        val CONFIG_CATEGORY = "config"
+        username = config.get(CREDENTIALS_CATEGORY, "username", "", "username for curseapp").string
+        val password = config.get(CREDENTIALS_CATEGORY, "password", "", "password for curseapp").string
         val server = config.get(CONNECTION_CATEGORY, "server", "server", "server to use for curseapp").string
         val channel = config.get(CONNECTION_CATEGORY, "channel", "channel", "channel for curseapp").string
+        config.setCategoryComment(CONFIG_CATEGORY, "Formatting tokens: {u} -> user, {s} -> server, {c} -> channel, {m} -> message\nNote that only tokens listed in the defaults are supported for each message!")
+        curseToMcMessageFormat = config.get(CONFIG_CATEGORY, "curseToMCFormat", "{s} {c}: <{u}> {m}", "[default: {s} {c}: <{u}> {m}]").string
 
         if (config.hasChanged())
             config.save()

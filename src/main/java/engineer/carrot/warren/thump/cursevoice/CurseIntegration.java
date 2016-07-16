@@ -2,6 +2,7 @@ package engineer.carrot.warren.thump.cursevoice;
 
 import engineer.carrot.warren.thump.api.IThumpMinecraftSink;
 import engineer.carrot.warren.thump.helper.LogHelper;
+import net.minecraft.util.StringUtils;
 
 /**
  * Created by progwml6 on 7/4/16.
@@ -45,10 +46,14 @@ public class CurseIntegration {
 
     public void init () {
         LogHelper.info("starting up curse integration");
-        thread = new CurseThread(this);
-        thread.setName("Thump - Curse");
-        thread.start();
-        LogHelper.info("CV plugin has started up");
+        if (!StringUtils.isNullOrEmpty(username) && !StringUtils.isNullOrEmpty(password)) {
+            thread = new CurseThread(this);
+            thread.setName("Thump - Curse");
+            thread.start();
+            LogHelper.info("CV plugin has started up");
+        } else {
+            LogHelper.info("not starting curse plugin as user/password was null or empty");
+        }
     }
 
     public void sendToCurse (String message) {

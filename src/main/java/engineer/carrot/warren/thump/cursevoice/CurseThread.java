@@ -50,7 +50,7 @@ public class CurseThread extends Thread {
             if (id.isPresent()) {
                 channel = id.get();
                 webSocket = new WebSocket(loginResponse, session, new URI(Apis.NOTIFICATIONS));
-                webSocket.addTask(new CurseMessage(integration.sink), NotificationsServiceContractType.CONVERSATION_MESSAGE_NOTIFICATION);
+                webSocket.addTask(new CurseMessage(integration.sink, integration.serverName, integration.channelName, channel), NotificationsServiceContractType.CONVERSATION_MESSAGE_NOTIFICATION);
                 LogHelper.info("starting curse websocket connection");
                 webSocket.start();
                 LogHelper.info("curse websocket connection started");
@@ -65,6 +65,5 @@ public class CurseThread extends Thread {
             LogHelper.error("curse plugin thread shutting down", e);
         }
     }
-
 
 }
