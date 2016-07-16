@@ -49,8 +49,10 @@ public class CurseThread extends Thread {
             Optional<CurseGUID> id = contacts.getChannelIdbyNames(integration.serverName, integration.channelName, true);
             if (id.isPresent()) {
                 channel = id.get();
+                integration.id = session.user.userID;
+                integration.curseUsername = session.user.username;
                 webSocket = new WebSocket(loginResponse, session, new URI(Apis.NOTIFICATIONS));
-                webSocket.addTask(new CurseMessage(integration.sink, integration.serverName, integration.channelName, channel), NotificationsServiceContractType.CONVERSATION_MESSAGE_NOTIFICATION);
+                webSocket.addTask(new CurseMessage(integration.sink, integration.serverName, integration.channelName, channel, integration.id, integration.username), NotificationsServiceContractType.CONVERSATION_MESSAGE_NOTIFICATION);
                 LogHelper.info("starting curse websocket connection");
                 webSocket.start();
                 LogHelper.info("curse websocket connection started");

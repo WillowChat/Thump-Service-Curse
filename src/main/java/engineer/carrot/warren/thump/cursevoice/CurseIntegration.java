@@ -12,6 +12,8 @@ public class CurseIntegration {
     protected String password;
     protected String serverName;
     protected String channelName;
+    protected int id;
+    protected String curseUsername;
     protected IThumpMinecraftSink sink;
     private CurseThread thread;
 

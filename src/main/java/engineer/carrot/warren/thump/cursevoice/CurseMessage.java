@@ -16,12 +16,16 @@ public class CurseMessage implements Task<ConversationMessageNotification> {
     private String serverName;
     private String channelName;
     private CurseGUID channelGuid;
+    private int configId;
+    private String configUser;
 
-    public CurseMessage (IThumpMinecraftSink sink, String serverName, String channelName, CurseGUID channelGuid) {
+    public CurseMessage (IThumpMinecraftSink sink, String serverName, String channelName, CurseGUID channelGuid, int configId, String configUser) {
         this.sink = sink;
         this.serverName = serverName;
         this.channelName = channelName;
         this.channelGuid = channelGuid;
+        this.configId = configId;
+        this.configUser = configUser;
     }
 
     @Override
@@ -35,7 +39,11 @@ public class CurseMessage implements Task<ConversationMessageNotification> {
                 String s = t.addUserToken(response.senderName).addMessageToken(response.body).addChannelToken(channelName).addServerToken(serverName)
                         .applyTokens(CurseVoicePlugin.curseToMcMessageFormat);
                 s = StringHelper.INSTANCE.stripBlacklistedIRCCharacters(s);
-                sink.sendToAllPlayers(response.senderName, s);
+                String un = response.senderName;
+                if (configId == response.senderID) {//we only need to swap this if its the user from the config
+                    un = configUser;
+                }
+                sink.sendToAllPlayers(un, s);
                 break;
             }
             }
