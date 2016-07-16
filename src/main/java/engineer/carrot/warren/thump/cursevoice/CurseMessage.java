@@ -34,7 +34,7 @@ public class CurseMessage implements Task<ConversationMessageNotification> {
                 TokenHelper t = new TokenHelper();
                 String s = t.addUserToken(response.senderName).addMessageToken(response.body).addChannelToken(channelName).addServerToken(serverName)
                         .applyTokens(CurseVoicePlugin.curseToMcMessageFormat);
-                StringHelper.INSTANCE.stripBlacklistedIRCCharacters(s);
+                s = StringHelper.INSTANCE.stripBlacklistedIRCCharacters(s);
                 sink.sendToAllPlayers(response.senderName, s);
                 break;
             }
