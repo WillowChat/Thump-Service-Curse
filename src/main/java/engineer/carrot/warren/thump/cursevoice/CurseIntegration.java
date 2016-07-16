@@ -58,7 +58,11 @@ public class CurseIntegration {
 
     public void sendToCurse (String message) {
         if (thread != null && thread.webSocket != null && thread.channel != null) {
-            thread.webSocket.sendMessage(thread.channel, message);
+            if (message == null) {
+               LogHelper.info("Don't attempt to send null messages!!!!!");
+            } else {
+                thread.webSocket.sendMessage(thread.channel, message);
+            }
         } else {
             LogHelper.error("curse thread not configured. Could not send message {} to curse", message);
         }
