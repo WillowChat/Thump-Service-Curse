@@ -54,7 +54,7 @@ public class CurseThread extends Thread {
                 LogHelper.info("starting curse websocket connection");
                 webSocket.start();
                 LogHelper.info("curse websocket connection started");
-
+                webSocket.sendMessage(channel, "Thump Curse bridge Connected!");
             } else {
                 LogHelper.error("could not find channel ID for {}/{}. Not starting CV plugin", integration.serverName, integration.channelName);
                 latch.await();
@@ -62,6 +62,11 @@ public class CurseThread extends Thread {
             }
             latch.await();
         } catch (InterruptedException | ExecutionException | URISyntaxException e) {
+            try {
+                webSocket.sendMessage(channel, "Thump Curse bridge Disconnecting");
+            } catch (Exception e2) {
+                //noop
+            }
             LogHelper.error("curse plugin thread shutting down", e);
         }
     }
