@@ -6,6 +6,10 @@ buildscript {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
+        maven {
+            name = "Gradle repo"
+            url = "https://repo.gradle.org/gradle/repo"
+        }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
@@ -17,6 +21,11 @@ repositories {
     maven { // Hopper Maven repo
         name 'Hopper'
         url "http://maven.hopper.bunnies.io/"
+    }
+
+    maven {
+        name = "Gradle repo"
+        url = "https://repo.gradle.org/gradle/repo"
     }
 }
 
@@ -48,7 +57,7 @@ sourceSets {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.13'
+    gradleVersion = '3.0'
 }
 
 task copyKotlinFiles(type: Copy) {

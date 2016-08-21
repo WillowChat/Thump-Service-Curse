@@ -19,15 +19,12 @@ import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 
-/**
- * Created by progwml6 on 7/16/16.
- */
 public class CurseThread extends Thread {
     private RestUserEndpoints endpoints;
     private ContactsResponse contacts;
     private CreateSessionResponse session;
-    protected WebSocket webSocket;
-    protected CurseGUID channel;
+    WebSocket webSocket;
+    CurseGUID channel;
     private CurseIntegration integration;
 
     public CurseThread (CurseIntegration integration) {
