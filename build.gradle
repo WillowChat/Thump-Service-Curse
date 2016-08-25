@@ -14,6 +14,7 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
     }
 }
 
@@ -32,6 +33,7 @@ repositories {
 apply plugin: 'kotlin'
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'idea'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 idea {
     module {
@@ -40,7 +42,7 @@ idea {
 }
 
 version = minecraft_version + '-' + version_major + '.' + version_minor + '.' + version_patch
-group = "engineer.carrot.warren.thump.cursevoice"
+group = "engineer.carrot.warren.thump-cursevoice"
 archivesBaseName = "Thump-Service-CurseVoice"
 
 if (System.getenv().BUILD_NUMBER != null) {//adds the build number to the end of the version string if on a build server
@@ -75,9 +77,10 @@ configurations {
 }
 
 dependencies {
-    shade fileTree(dir: 'libs', include: ['*.jar']) //TODO swap this for maven access to javacurselib once publicly released
+    compile fileTree(dir: 'libs', include: ['*.jar']) //TODO swap this for maven access to javacurselib once publicly released
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile group: 'org.slf4j', name:'slf4j-api', version: '1.7.21' //shaded in javacurselib mc jar already
+
     deobfCompile "engineer.carrot.warren.thump:Thump:$thump_version"
 }
 
@@ -91,11 +94,37 @@ minecraft {
     mappings = "snapshot_20160519"
 }
 
+shadowJar {
+    dependsOn reobfJar
+
+    classifier = ""
+
+    mergeServiceFiles()
+
+    relocate 'org.slf4j', 'engineer.carrot.warren.thump.slf4j'
+    relocate 'kotlin', 'engineer.carrot.warren.thump.repack.kotlin'
+    relocate 'okhttp3', 'engineer.carrot.warren.thump.cursevoice.repack.okhttp3'
+    relocate 'javax.websocket', 'engineer.carrot.warren.thump.cursevoice.repack.javax.websocket'
+    relocate 'okio', 'engineer.carrot.warren.thump.cursevoice.repack.okio'
+    relocate 'org.glassfish.tyrus', 'engineer.carrot.warren.thump.cursevoice.repack.org.glassfish.tyrus'
+    relocate 'retrofit2', 'engineer.carrot.warren.thump.cursevoice.repack.retrofit2'
+    relocate 'com.feed_the_beast.javacurselib', 'engineer.carrot.warren.thump.cursevoice.repack.com.feed_the_beast.javacurselib'
+}
+
 reobf {
-    jar {
-        extraLines += [ 'PK: org/slf4j engineer/carrot/warren/thump/slf4j' ]
-        extraLines += [ 'PK: kotlin engineer/carrot/warren/thump/repack/kotlin' ]
+    shadowJar {
+        mappingType = 'SEARGE'
     }
+}
+
+configurations {
+    // Prevent the following modules from being included in shadowJar
+    runtime.exclude module: 'Thump'
+    runtime.exclude module: 'Kale'
+    runtime.exclude module: 'Warren'
+    runtime.exclude module: 'slf4j-api'
+    runtime.exclude module: 'kotlin-stdlib'
+    runtime.exclude module: 'kotlin-runtime'
 }
 
 processResources {
@@ -164,7 +193,7 @@ if (!project.hasProperty("DEPLOY_DIR")) {
 }
 
 artifacts {
-    archives deobfJar
+    archives deobfJar, shadowJar
 }
 
 uploadArchives {
