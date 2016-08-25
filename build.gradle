@@ -6,6 +6,10 @@ buildscript {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
+        maven {
+            name = "Gradle repo"
+            url = "https://repo.gradle.org/gradle/repo"
+        }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
@@ -16,7 +20,12 @@ buildscript {
 repositories {
     maven { // Hopper Maven repo
         name 'Hopper'
-        url "https://maven.hopper.bunnies.io/"
+        url "http://maven.hopper.bunnies.io/"
+    }
+
+    maven {
+        name = "Gradle repo"
+        url = "https://repo.gradle.org/gradle/repo"
     }
 }
 
@@ -39,8 +48,8 @@ if (System.getenv().BUILD_NUMBER != null) {//adds the build number to the end of
 }
 
 // java version
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 sourceSets {
     main.kotlin.srcDirs += 'src/main/kotlin'
@@ -48,7 +57,7 @@ sourceSets {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.13'
+    gradleVersion = '3.0'
 }
 
 task copyKotlinFiles(type: Copy) {
@@ -66,8 +75,9 @@ configurations {
 }
 
 dependencies {
+    shade fileTree(dir: 'libs', include: ['*.jar']) //TODO swap this for maven access to javacurselib once publicly released
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile group: 'org.slf4j', name:'slf4j-api', version: '1.7.21'
+    compile group: 'org.slf4j', name:'slf4j-api', version: '1.7.21' //shaded in javacurselib mc jar already
     deobfCompile "engineer.carrot.warren.thump:Thump:$thump_version"
 }
 

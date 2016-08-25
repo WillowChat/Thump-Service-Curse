@@ -1,4 +1,4 @@
-package engineer.carrot.warren.thump;
+package engineer.carrot.warren.thump.cursevoice;
 
 public class Reference {
     public static final String MOD_ID = "Thump Curse Voice Service";
