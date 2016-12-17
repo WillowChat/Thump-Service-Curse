@@ -126,7 +126,7 @@ shadowJar {
     }
 
     dependencies {
-        exclude(dependency('Thump'))
+        exclude(dependency("engineer.carrot.warren.thump:Thump:$thump_version"))
     }
 }
 
