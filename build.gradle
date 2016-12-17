@@ -119,6 +119,7 @@ shadowJar {
     relocate 'org.glassfish.tyrus', 'engineer.carrot.warren.thump.cursevoice.repack.org.glassfish.tyrus'
     relocate 'retrofit2', 'engineer.carrot.warren.thump.cursevoice.repack.retrofit2'
     relocate 'com.feed_the_beast.javacurselib', 'engineer.carrot.warren.thump.cursevoice.repack.com.feed_the_beast.javacurselib'
+    relocate 'lombok', 'engineer.carrot.warren.thump.cursevoice.repack.lombock'
 
     manifest {
         from jenkinsManifest, gitManifest
@@ -139,9 +140,9 @@ configurations {
     runtime.exclude module: 'slf4j-api'
     runtime.exclude module: 'kotlin-stdlib'
     runtime.exclude module: 'kotlin-runtime'
-    runtime.exclude group: 'org.apache'
-    runtime.exclude group: 'org.isomorphism'
-    runtime.exclude group: 'org.objectweb'
+    runtime.exclude module: 'guava'
+    runtime.exclude group: 'org.apache.commons'
+    runtime.exclude group: 'org.ow2.asm'
     runtime.exclude group: 'com.google'
 }
 
