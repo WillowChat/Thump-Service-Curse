@@ -28,6 +28,10 @@ repositories {
         name = "Gradle repo"
         url = "https://repo.gradle.org/gradle/repo"
     }
+    maven {
+        name = 'DVS1'
+        url = 'http://dvs1.progwml6.com/files/maven'
+    }
 }
 
 apply plugin: 'kotlin'
@@ -49,7 +53,6 @@ if (System.getenv().BUILD_NUMBER != null) {//adds the build number to the end of
     version += ".${System.getenv().BUILD_NUMBER}"
 }
 
-// java version
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -63,7 +66,7 @@ task wrapper(type: Wrapper) {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar']) //TODO swap this for maven access to javacurselib once publicly released
+    compile 'com.feed_the_beast:javacurseapi:$javacurselib_version:mcnoslf4j'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile group: 'org.slf4j', name:'slf4j-api', version: '1.7.21' //shaded in javacurselib mc jar already
 
