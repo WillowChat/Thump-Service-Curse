@@ -139,6 +139,10 @@ configurations {
     runtime.exclude module: 'slf4j-api'
     runtime.exclude module: 'kotlin-stdlib'
     runtime.exclude module: 'kotlin-runtime'
+    runtime.exclude group: 'org.apache'
+    runtime.exclude group: 'org.isomorphism'
+    runtime.exclude group: 'org.objectweb'
+    runtime.exclude group: 'com.google'
 }
 
 processResources {
