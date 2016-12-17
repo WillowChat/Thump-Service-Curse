@@ -8,6 +8,7 @@ import engineer.carrot.warren.thump.api.IThumpMinecraftSink;
 import engineer.carrot.warren.thump.helper.LogHelper;
 import engineer.carrot.warren.thump.helper.StringHelper;
 import engineer.carrot.warren.thump.helper.TokenHelper;
+import net.minecraft.util.text.TextComponentString;
 
 import javax.annotation.Nonnull;
 
@@ -43,7 +44,7 @@ public class CurseMessage implements Task<ConversationMessageNotification> {
                 if (configId == response.senderID) {//we only need to swap this if its the user from the config
                     un = configUser;
                 }
-                sink.sendToAllPlayers(un, s);
+                sink.sendToAllPlayers(un, new TextComponentString(s));
                 break;
             }
             }

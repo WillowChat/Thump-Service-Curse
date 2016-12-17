@@ -19,9 +19,11 @@ buildscript {
 }
 
 repositories {
+    jcenter()
+
     maven { // Hopper Maven repo
         name 'Hopper'
-        url "http://maven.hopper.bunnies.io/"
+        url "https://maven.hopper.bunnies.io/"
     }
 
     maven {
@@ -66,7 +68,7 @@ task wrapper(type: Wrapper) {
 }
 
 dependencies {
-    compile 'com.feed_the_beast:javacurseapi:$javacurselib_version:mcnoslf4j'
+    compile "com.feed_the_beast:javacurseapi:$javacurselib_version:mcnoslf4j"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile group: 'org.slf4j', name:'slf4j-api', version: '1.7.21' //shaded in javacurselib mc jar already
 
