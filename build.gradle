@@ -124,6 +124,10 @@ shadowJar {
     manifest {
         from jenkinsManifest, gitManifest
     }
+
+    dependencies {
+        exclude(dependency('Thump'))
+    }
 }
 
 reobf {
@@ -141,9 +145,10 @@ configurations {
     runtime.exclude module: 'kotlin-stdlib'
     runtime.exclude module: 'kotlin-runtime'
     runtime.exclude module: 'guava'
-    runtime.exclude group: 'org.apache.commons'
-    runtime.exclude group: 'org.ow2.asm'
-    runtime.exclude group: 'com.google'
+    runtime.exclude module: 'commons-io'
+    runtime.exclude module: 'commons-lang'
+    runtime.exclude module: 'commons-compress'
+    runtime.exclude module: 'findbugs'
 }
 
 processResources {
