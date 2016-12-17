@@ -146,7 +146,7 @@ configurations {
     runtime.exclude module: 'kotlin-runtime'
     runtime.exclude module: 'guava'
     runtime.exclude module: 'commons-io'
-    runtime.exclude module: 'commons-lang'
+    runtime.exclude module: 'commons-lang3'
     runtime.exclude module: 'commons-compress'
     runtime.exclude module: 'findbugs'
 }
