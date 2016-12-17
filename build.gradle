@@ -120,6 +120,7 @@ shadowJar {
     relocate 'retrofit2', 'engineer.carrot.warren.thump.cursevoice.repack.retrofit2'
     relocate 'com.feed_the_beast.javacurselib', 'engineer.carrot.warren.thump.cursevoice.repack.com.feed_the_beast.javacurselib'
     relocate 'lombok', 'engineer.carrot.warren.thump.cursevoice.repack.lombock'
+    relocate 'com.google.gson', 'engineer.carrot.warren.thump.cursevoice.repack.gson'
 
     manifest {
         from jenkinsManifest, gitManifest
