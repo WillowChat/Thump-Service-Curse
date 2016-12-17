@@ -73,7 +73,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile group: 'org.slf4j', name:'slf4j-api', version: '1.7.21' //shaded in javacurselib mc jar already
 
-    deobfCompile "engineer.carrot.warren.thump:Thump:$thump_version"
+    compile "engineer.carrot.warren.thump:Thump:$thump_version"
 }
 
 minecraft {
