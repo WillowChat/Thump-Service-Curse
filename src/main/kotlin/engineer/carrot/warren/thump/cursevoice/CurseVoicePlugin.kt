@@ -6,6 +6,7 @@ import engineer.carrot.warren.thump.api.ThumpPluginContext
 import engineer.carrot.warren.thump.api.ThumpServicePlugin
 import engineer.carrot.warren.thump.cursevoice.command.CurseVoicePluginCommandHandler
 import engineer.carrot.warren.thump.helper.LogHelper
+import net.minecraft.util.text.ITextComponent
 
 @ThumpServicePlugin
 object CurseVoicePlugin : IThumpServicePlugin {
@@ -53,8 +54,8 @@ object CurseVoicePlugin : IThumpServicePlugin {
         return listOf()
     }
 
-    override fun onMinecraftMessage(message: String) {
-        integration.sendToCurse(message)
+    override fun onMinecraftMessage(message: ITextComponent) {
+        integration.sendToCurse(message.unformattedText)
         LogHelper.info("Curse Voice plugin got message: $message")
     }
 

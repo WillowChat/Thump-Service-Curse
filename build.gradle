@@ -19,14 +19,21 @@ buildscript {
 }
 
 repositories {
+    mavenCentral()
+
     maven { // Hopper Maven repo
         name 'Hopper'
-        url "http://maven.hopper.bunnies.io/"
+        url "https://maven.hopper.bunnies.io/"
     }
 
     maven {
         name = "Gradle repo"
         url = "https://repo.gradle.org/gradle/repo"
+    }
+
+    maven {
+        name = 'DVS1'
+        url = 'http://dvs1.progwml6.com/files/maven'
     }
 }
 
@@ -49,7 +56,6 @@ if (System.getenv().BUILD_NUMBER != null) {//adds the build number to the end of
     version += ".${System.getenv().BUILD_NUMBER}"
 }
 
-// java version
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -63,11 +69,11 @@ task wrapper(type: Wrapper) {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar']) //TODO swap this for maven access to javacurselib once publicly released
+    compile "com.feed_the_beast:javacurseapi:$javacurselib_version:mcnoslf4j"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile group: 'org.slf4j', name:'slf4j-api', version: '1.7.21' //shaded in javacurselib mc jar already
 
-    deobfCompile "engineer.carrot.warren.thump:Thump:$thump_version"
+    compile "engineer.carrot.warren.thump:Thump:$thump_version"
 }
 
 minecraft {
@@ -113,9 +119,15 @@ shadowJar {
     relocate 'org.glassfish.tyrus', 'engineer.carrot.warren.thump.cursevoice.repack.org.glassfish.tyrus'
     relocate 'retrofit2', 'engineer.carrot.warren.thump.cursevoice.repack.retrofit2'
     relocate 'com.feed_the_beast.javacurselib', 'engineer.carrot.warren.thump.cursevoice.repack.com.feed_the_beast.javacurselib'
+    relocate 'lombok', 'engineer.carrot.warren.thump.cursevoice.repack.lombock'
+    relocate 'com.google.gson', 'engineer.carrot.warren.thump.cursevoice.repack.gson'
 
     manifest {
         from jenkinsManifest, gitManifest
+    }
+
+    dependencies {
+        exclude(dependency("engineer.carrot.warren.thump:Thump:$thump_version"))
     }
 }
 
@@ -133,6 +145,11 @@ configurations {
     runtime.exclude module: 'slf4j-api'
     runtime.exclude module: 'kotlin-stdlib'
     runtime.exclude module: 'kotlin-runtime'
+    runtime.exclude module: 'guava'
+    runtime.exclude module: 'commons-io'
+    runtime.exclude module: 'commons-lang3'
+    runtime.exclude module: 'commons-compress'
+    runtime.exclude module: 'findbugs'
 }
 
 processResources {
