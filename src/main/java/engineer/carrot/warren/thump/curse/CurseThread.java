@@ -1,4 +1,4 @@
-package engineer.carrot.warren.thump.cursevoice;
+package engineer.carrot.warren.thump.curse;
 
 import com.feed_the_beast.javacurselib.common.enums.DevicePlatform;
 import com.feed_the_beast.javacurselib.data.Apis;

@@ -49,8 +49,8 @@ idea {
 }
 
 version = minecraft_version + '-' + version_major + '.' + version_minor + '.' + version_patch
-group = "engineer.carrot.warren.thump-cursevoice"
-archivesBaseName = "Thump-Service-CurseVoice"
+group = "engineer.carrot.warren.thump-curse"
+archivesBaseName = "Thump-Service-Curse"
 
 if (System.getenv().BUILD_NUMBER != null) {//adds the build number to the end of the version string if on a build server
     version += ".${System.getenv().BUILD_NUMBER}"
@@ -113,14 +113,14 @@ shadowJar {
 
     relocate 'org.slf4j', 'engineer.carrot.warren.thump.slf4j'
     relocate 'kotlin', 'engineer.carrot.warren.thump.repack.kotlin'
-    relocate 'okhttp3', 'engineer.carrot.warren.thump.cursevoice.repack.okhttp3'
-    relocate 'javax.websocket', 'engineer.carrot.warren.thump.cursevoice.repack.javax.websocket'
-    relocate 'okio', 'engineer.carrot.warren.thump.cursevoice.repack.okio'
-    relocate 'org.glassfish.tyrus', 'engineer.carrot.warren.thump.cursevoice.repack.org.glassfish.tyrus'
-    relocate 'retrofit2', 'engineer.carrot.warren.thump.cursevoice.repack.retrofit2'
-    relocate 'com.feed_the_beast.javacurselib', 'engineer.carrot.warren.thump.cursevoice.repack.com.feed_the_beast.javacurselib'
-    relocate 'lombok', 'engineer.carrot.warren.thump.cursevoice.repack.lombock'
-    relocate 'com.google.gson', 'engineer.carrot.warren.thump.cursevoice.repack.gson'
+    relocate 'okhttp3', 'engineer.carrot.warren.thump.curse.repack.okhttp3'
+    relocate 'javax.websocket', 'engineer.carrot.warren.thump.curse.repack.javax.websocket'
+    relocate 'okio', 'engineer.carrot.warren.thump.curse.repack.okio'
+    relocate 'org.glassfish.tyrus', 'engineer.carrot.warren.thump.curse.repack.org.glassfish.tyrus'
+    relocate 'retrofit2', 'engineer.carrot.warren.thump.curse.repack.retrofit2'
+    relocate 'com.feed_the_beast.javacurselib', 'engineer.carrot.warren.thump.curse.repack.com.feed_the_beast.javacurselib'
+    relocate 'lombok', 'engineer.carrot.warren.thump.curse.repack.lombock'
+    relocate 'com.google.gson', 'engineer.carrot.warren.thump.curse.repack.gson'
 
     manifest {
         from jenkinsManifest, gitManifest

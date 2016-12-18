@@ -1,7 +1,7 @@
 [{
-    "modid": "Thump-Service-CurseVoice",
-    "name": "Thump CurseVoice Service",
-    "description": "Curse Voice support for Thump",
+    "modid": "Thump-Service-Curse",
+    "name": "Thump Curse Service",
+    "description": "Curse support for Thump",
     "version": "${version}",
     "mcversion": "${minecraft_version}",
     "url": "http://minecraft.curseforge.com/mc-mods/231124-thump",

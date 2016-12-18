@@ -1,4 +1,4 @@
-package engineer.carrot.warren.thump.cursevoice;
+package engineer.carrot.warren.thump.curse;
 
 import engineer.carrot.warren.thump.api.IThumpMinecraftSink;
 import engineer.carrot.warren.thump.helper.LogHelper;

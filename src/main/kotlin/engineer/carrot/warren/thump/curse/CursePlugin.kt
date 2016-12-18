@@ -1,17 +1,17 @@
-package engineer.carrot.warren.thump.cursevoice
+package engineer.carrot.warren.thump.curse
 
 import engineer.carrot.warren.thump.api.IThumpMinecraftSink
 import engineer.carrot.warren.thump.api.IThumpServicePlugin
 import engineer.carrot.warren.thump.api.ThumpPluginContext
 import engineer.carrot.warren.thump.api.ThumpServicePlugin
-import engineer.carrot.warren.thump.cursevoice.command.CurseVoicePluginCommandHandler
+import engineer.carrot.warren.thump.curse.command.CursePluginCommandHandler
 import engineer.carrot.warren.thump.helper.LogHelper
 import net.minecraft.util.text.ITextComponent
 
 @ThumpServicePlugin
-object CurseVoicePlugin : IThumpServicePlugin {
-    override val id = "cursevoice"
-    override val commandHandler = CurseVoicePluginCommandHandler()
+object CursePlugin : IThumpServicePlugin {
+    override val id = "curse"
+    override val commandHandler = CursePluginCommandHandler()
     private lateinit var sink: IThumpMinecraftSink
     private lateinit var username: String
     private lateinit var integration: CurseIntegration

@@ -1,4 +1,4 @@
-package engineer.carrot.warren.thump.cursevoice;
+package engineer.carrot.warren.thump.curse;
 
 import com.feed_the_beast.javacurselib.utils.CurseGUID;
 import com.feed_the_beast.javacurselib.websocket.WebSocket;
@@ -38,7 +38,7 @@ public class CurseMessage implements Task<ConversationMessageNotification> {
                 LogHelper.info("serverID {} channelID {} from {}, Msg: {}", response.rootConversationID, response.conversationID, response.senderName, response.body);
                 TokenHelper t = new TokenHelper();
                 String s = t.addUserToken(response.senderName).addMessageToken(response.body).addChannelToken(channelName).addServerToken(serverName)
-                        .applyTokens(CurseVoicePlugin.curseToMcMessageFormat);
+                        .applyTokens(CursePlugin.curseToMcMessageFormat);
                 s = StringHelper.INSTANCE.stripBlacklistedIRCCharacters(s);
                 String un = response.senderName;
                 if (configId == response.senderID) {//we only need to swap this if its the user from the config
