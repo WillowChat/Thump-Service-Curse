@@ -1,7 +1,7 @@
-# Thump Curse Voice Service
+# Thump Curse Service
 
 ## Introduction
-This is a plugin to provide Curse Voice (chat) support to [Thump](https://github.com/CarrotCodes/Thump).
+This is a plugin to provide Curse (chat) support to [Thump](https://github.com/CarrotCodes/Thump).
 
 ## Building
 This mod uses Forge's Gradle wrapper for pretty easy setup and building. There are better guides around the internet for using it, and I don't do anything particularly special.
