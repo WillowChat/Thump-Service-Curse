@@ -79,7 +79,7 @@ public class CurseIntegration {
         List<String> ret = Lists.newArrayList();
         if (StringUtils.isNullOrEmpty(serverName) || StringUtils.isNullOrEmpty(channelName)) {
             ret.add("Curse Plugin not configured");
-        } else if (!thread.isAlive()) {
+        } else if (thread == null || !thread.isAlive()) {
             ret.add("Curse Plugin is not connected");
         } else {
             ret.add("Curse Plugin connected to " + serverName + " " + channelName);
