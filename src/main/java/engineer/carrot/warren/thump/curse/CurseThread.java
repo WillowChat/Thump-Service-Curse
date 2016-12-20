@@ -4,6 +4,7 @@ import com.feed_the_beast.javacurselib.common.enums.DevicePlatform;
 import com.feed_the_beast.javacurselib.data.Apis;
 import com.feed_the_beast.javacurselib.rest.RestUserEndpoints;
 import com.feed_the_beast.javacurselib.service.contacts.contacts.ContactsResponse;
+import com.feed_the_beast.javacurselib.service.groups.groups.GroupInvitationRedeemResponse;
 import com.feed_the_beast.javacurselib.service.logins.login.LoginRequest;
 import com.feed_the_beast.javacurselib.service.logins.login.LoginResponse;
 import com.feed_the_beast.javacurselib.service.sessions.sessions.CreateSessionRequest;
@@ -20,11 +21,11 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 
 public class CurseThread extends Thread {
+    WebSocket webSocket;
+    CurseGUID channel;
     private RestUserEndpoints endpoints;
     private ContactsResponse contacts;
     private CreateSessionResponse session;
-    WebSocket webSocket;
-    CurseGUID channel;
     private CurseIntegration integration;
 
     public CurseThread (CurseIntegration integration) {
@@ -45,17 +46,19 @@ public class CurseThread extends Thread {
             session = endpoints.session.create(new CreateSessionRequest(CurseGUID.newRandomUUID(), DevicePlatform.UNKNOWN)).get();
             Optional<CurseGUID> id = contacts.getChannelIdbyNames(integration.serverName, integration.channelName, true);
             if (id.isPresent()) {
-                channel = id.get();
-                integration.id = session.user.userID;
-                integration.curseUsername = session.user.username;
-                webSocket = new WebSocket(loginResponse, session, new URI(Apis.NOTIFICATIONS));
-                webSocket.addTask(new CurseMessage(integration.sink, integration.serverName, integration.channelName, channel, integration.id, integration.username), NotificationsServiceContractType.CONVERSATION_MESSAGE_NOTIFICATION);
-                LogHelper.info("starting curse websocket connection");
-                webSocket.start();
-                LogHelper.info("curse websocket connection started");
-                webSocket.sendMessage(channel, "Thump Curse bridge Connected!");
+                joinServer(id.get(), loginResponse);
             } else {
-                LogHelper.error("could not find channel ID for {}/{}. Not starting CV plugin", integration.serverName, integration.channelName);
+                GroupInvitationRedeemResponse redeem = endpoints.servers.redeemInvite(integration.link.substring(integration.link.lastIndexOf("/") + 1)).get();
+                if (redeem.channelID != null && redeem.group != null) {
+                    contacts = endpoints.contacts.get().get();
+                    id = contacts.getChannelIdbyNames(integration.serverName, integration.channelName, true);
+                    LogHelper.info("invited to server {}/{} {}/{}.", redeem.group.groupTitle, redeem.group.getChannelNamebyId(redeem.channelID), redeem.group.groupID, redeem.channelID);
+                }
+                if (id.isPresent()) {
+                    joinServer(id.get(), loginResponse);
+                } else {
+                    LogHelper.error("could not find channel ID for {}/{}. Not starting CV plugin", integration.serverName, integration.channelName);
+                }
                 latch.await();
                 return;
             }
@@ -70,4 +73,16 @@ public class CurseThread extends Thread {
         }
     }
 
+    private void joinServer (CurseGUID id, LoginResponse loginResponse) throws URISyntaxException {
+        channel = id;
+        integration.id = session.user.userID;
+        integration.curseUsername = session.user.username;
+        webSocket = new WebSocket(loginResponse, session, new URI(Apis.NOTIFICATIONS));
+        webSocket.addTask(new CurseMessage(integration.sink, integration.serverName, integration.channelName, channel, integration.id, integration.username),
+                NotificationsServiceContractType.CONVERSATION_MESSAGE_NOTIFICATION);
+        LogHelper.info("starting curse websocket connection");
+        webSocket.start();
+        LogHelper.info("curse websocket connection started");
+        webSocket.sendMessage(channel, "Thump Curse bridge Connected!");
+    }
 }

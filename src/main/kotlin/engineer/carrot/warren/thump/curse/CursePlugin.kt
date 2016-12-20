@@ -26,6 +26,7 @@ object CursePlugin : IThumpServicePlugin {
         val CONFIG_CATEGORY = "config"
         username = config.get(CREDENTIALS_CATEGORY, "username", "", "username for curseapp").string
         val password = config.get(CREDENTIALS_CATEGORY, "password", "", "password for curseapp").string
+        val serverLink = config.get(CONNECTION_CATEGORY, "serverlink", "", "invite link to join if server is not already joined curseapp").string
         val server = config.get(CONNECTION_CATEGORY, "server", "server", "server to use for curseapp").string
         val channel = config.get(CONNECTION_CATEGORY, "channel", "channel", "channel for curseapp").string
         config.setCategoryComment(CONFIG_CATEGORY, "Formatting tokens: {u} -> user, {s} -> server, {c} -> channel, {m} -> message\nNote that only tokens listed in the defaults are supported for each message!")
@@ -35,7 +36,7 @@ object CursePlugin : IThumpServicePlugin {
             config.save()
 
 
-        integration = CurseIntegration(username, password, server, channel, sink)
+        integration = CurseIntegration(username, password, server, channel, sink, serverLink)
 
         LogHelper.info("Curse Voice plugin configured")
     }
