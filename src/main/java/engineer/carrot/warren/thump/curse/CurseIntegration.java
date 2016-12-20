@@ -18,14 +18,16 @@ public class CurseIntegration {
     protected int id;
     protected String curseUsername;
     protected IThumpMinecraftSink sink;
+    protected String link;
     private CurseThread thread;
 
-    public CurseIntegration (String username, String password, String serverName, String channelName, IThumpMinecraftSink sink) {
+    public CurseIntegration (String username, String password, String serverName, String channelName, IThumpMinecraftSink sink, String link) {
         this.username = username;
         this.password = password;
         this.serverName = serverName;
         this.channelName = channelName;
         this.sink = sink;
+        this.link = link;
 
     }
 
