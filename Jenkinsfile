@@ -40,6 +40,10 @@ pipeline {
         }
 
         stage('Deploy') {
+            when {
+                env.BRANCH == '1.10.2'
+            }
+            
             steps {
                 sh "./gradlew uploadArchives -PBUILD_NUMBER=${env.BUILD_NUMBER} -PDEPLOY_DIR=/var/www/maven.hopper.bunnies.io --no-daemon"
             }
