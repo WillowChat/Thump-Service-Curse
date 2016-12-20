@@ -51,7 +51,7 @@ object CursePlugin : IThumpServicePlugin {
     }
 
     override fun status(): List<String> {
-        return listOf()
+        return integration.status()
     }
 
     override fun onMinecraftMessage(message: ITextComponent) {
