@@ -1,8 +1,11 @@
 package engineer.carrot.warren.thump.curse;
 
+import com.google.common.collect.Lists;
 import engineer.carrot.warren.thump.api.IThumpMinecraftSink;
 import engineer.carrot.warren.thump.helper.LogHelper;
 import net.minecraft.util.StringUtils;
+
+import java.util.List;
 
 /**
  * Created by progwml6 on 7/4/16.
@@ -68,6 +71,19 @@ public class CurseIntegration {
         } else {
             LogHelper.error("curse thread not configured. Could not send message {} to curse", message);
         }
+    }
+
+    public List<String> status () {
+        List<String> ret = Lists.newArrayList();
+        if (StringUtils.isNullOrEmpty(serverName) || StringUtils.isNullOrEmpty(channelName)) {
+            ret.add("Curse Plugin not configured");
+        } else if (!thread.isAlive()) {
+            ret.add("Curse Plugin is not connected");
+        } else {
+            ret.add("Curse Plugin connected to " + serverName + " " + channelName);
+        }
+
+        return ret;
     }
 
     public void shutdown () {
