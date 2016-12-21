@@ -7,6 +7,10 @@ buildscript {
             url = "http://files.minecraftforge.net/maven"
         }
         maven {
+            name = "JetBrains Kotlin EAP"
+            url = "http://dl.bintray.com/kotlin/kotlin-eap-1.1"
+        }
+        maven {
             name = "Gradle repo"
             url = "https://repo.gradle.org/gradle/repo"
         }
@@ -24,6 +28,11 @@ repositories {
     maven { // Hopper Maven repo
         name 'Hopper'
         url "https://maven.hopper.bunnies.io/"
+    }
+
+    maven {
+        name = "JetBrains Kotlin EAP"
+        url = "http://dl.bintray.com/kotlin/kotlin-eap-1.1"
     }
 
     maven {
