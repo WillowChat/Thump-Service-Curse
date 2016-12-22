@@ -5,7 +5,7 @@ import engineer.carrot.warren.thump.api.IThumpServicePlugin
 import engineer.carrot.warren.thump.api.ThumpPluginContext
 import engineer.carrot.warren.thump.api.ThumpServicePlugin
 import engineer.carrot.warren.thump.curse.command.CursePluginCommandHandler
-import engineer.carrot.warren.thump.helper.LogHelper
+import engineer.carrot.warren.thump.curse.helper.LogHelper
 import net.minecraft.util.text.ITextComponent
 
 @ThumpServicePlugin

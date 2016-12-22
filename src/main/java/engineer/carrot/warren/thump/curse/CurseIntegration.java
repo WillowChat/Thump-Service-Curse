@@ -2,14 +2,11 @@ package engineer.carrot.warren.thump.curse;
 
 import com.google.common.collect.Lists;
 import engineer.carrot.warren.thump.api.IThumpMinecraftSink;
-import engineer.carrot.warren.thump.helper.LogHelper;
+import engineer.carrot.warren.thump.curse.helper.LogHelper;
 import net.minecraft.util.StringUtils;
 
 import java.util.List;
 
-/**
- * Created by progwml6 on 7/4/16.
- */
 public class CurseIntegration {
     protected String username;
     protected String password;
@@ -52,26 +49,26 @@ public class CurseIntegration {
     }
 
     public void init () {
-        LogHelper.info("starting up curse integration");
+        LogHelper.INSTANCE.info("starting up curse integration");
         if (!StringUtils.isNullOrEmpty(username) && !StringUtils.isNullOrEmpty(password)) {
             thread = new CurseThread(this);
             thread.setName("Thump - Curse");
             thread.start();
-            LogHelper.info("CV plugin has started up");
+            LogHelper.INSTANCE.info("CV plugin has started up");
         } else {
-            LogHelper.info("not starting curse plugin as user/password was null or empty");
+            LogHelper.INSTANCE.info("not starting curse plugin as user/password was null or empty");
         }
     }
 
     public void sendToCurse (String message) {
         if (thread != null && thread.webSocket != null && thread.channel != null) {
             if (message == null) {
-                LogHelper.info("Don't attempt to send null messages!!!!!");
+                LogHelper.INSTANCE.info("Don't attempt to send null messages!!!!!");
             } else {
                 thread.webSocket.sendMessage(thread.channel, message);
             }
         } else {
-            LogHelper.error("curse thread not configured. Could not send message {} to curse", message);
+            LogHelper.INSTANCE.error("curse thread not configured. Could not send message {} to curse", message);
         }
     }
 
