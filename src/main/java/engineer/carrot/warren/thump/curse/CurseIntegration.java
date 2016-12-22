@@ -88,6 +88,9 @@ public class CurseIntegration {
     public void shutdown () {
         //TODO logout??
         if (thread != null) {
+            if( thread.webSocket != null) {
+                thread.webSocket.stop();
+            }
             thread.interrupt();
         }
     }
