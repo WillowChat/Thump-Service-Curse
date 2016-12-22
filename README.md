@@ -1,5 +1,5 @@
 # Thump Curse Service
-
+ 
 ## Introduction
 This is a plugin to provide Curse (chat) support to [Thump](https://github.com/CarrotCodes/Thump).
 
