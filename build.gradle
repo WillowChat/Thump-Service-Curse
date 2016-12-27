@@ -92,7 +92,7 @@ minecraft {
     replace '@VERSION@', project.version
     replace '@KOTLIN_VERSION@', kotlin_version
 
-    mappings = "snapshot_20160519"
+    mappings = "snapshot_20161227"
 }
 
 def env = System.getenv()
