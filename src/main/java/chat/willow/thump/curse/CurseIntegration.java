@@ -1,8 +1,8 @@
-package engineer.carrot.warren.thump.curse;
+package chat.willow.thump.curse;
 
 import com.google.common.collect.Lists;
-import engineer.carrot.warren.thump.api.IThumpMinecraftSink;
-import engineer.carrot.warren.thump.curse.helper.LogHelper;
+import chat.willow.thump.api.IThumpMinecraftSink;
+import chat.willow.thump.curse.helper.LogHelper;
 import net.minecraft.util.StringUtils;
 
 import java.util.List;

@@ -1,6 +1,6 @@
-package engineer.carrot.warren.thump.curse.command
+package chat.willow.thump.curse.command
 
-import engineer.carrot.warren.thump.api.ICommandHandler
+import chat.willow.thump.api.ICommandHandler
 import net.minecraft.command.ICommandSender
 
 class CursePluginCommandHandler : ICommandHandler {

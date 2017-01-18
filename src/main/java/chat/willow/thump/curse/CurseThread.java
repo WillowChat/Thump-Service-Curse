@@ -1,5 +1,6 @@
-package engineer.carrot.warren.thump.curse;
+package chat.willow.thump.curse;
 
+import chat.willow.thump.curse.helper.LogHelper;
 import com.feed_the_beast.javacurselib.common.enums.DevicePlatform;
 import com.feed_the_beast.javacurselib.data.Apis;
 import com.feed_the_beast.javacurselib.rest.RestUserEndpoints;
@@ -12,7 +13,7 @@ import com.feed_the_beast.javacurselib.service.sessions.sessions.CreateSessionRe
 import com.feed_the_beast.javacurselib.utils.CurseGUID;
 import com.feed_the_beast.javacurselib.websocket.WebSocket;
 import com.feed_the_beast.javacurselib.websocket.messages.notifications.NotificationsServiceContractType;
-import engineer.carrot.warren.thump.curse.helper.LogHelper;
+import chat.willow.thump.curse.helper.LogHelper;
 
 import java.net.URI;
 import java.net.URISyntaxException;

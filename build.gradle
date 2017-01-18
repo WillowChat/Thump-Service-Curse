@@ -25,9 +25,9 @@ buildscript {
 repositories {
     mavenCentral()
 
-    maven { // Hopper Maven repo
-        name 'Hopper'
-        url "https://maven.hopper.bunnies.io/"
+    maven {
+        name 'CarrotCodes CI'
+        url "https://maven.ci.carrot.codes"
     }
 
     maven {
@@ -58,7 +58,7 @@ idea {
 }
 
 version = minecraft_version + '-' + version_major + '.' + version_minor + '.' + version_patch
-group = "engineer.carrot.warren.thump-curse"
+group = "chat.willow.thump.curse"
 archivesBaseName = "Thump-Service-Curse"
 
 if (System.getenv().BUILD_NUMBER != null) {//adds the build number to the end of the version string if on a build server
@@ -82,7 +82,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile group: 'org.slf4j', name:'slf4j-api', version: '1.7.21' //shaded in javacurselib mc jar already
 
-    compile "engineer.carrot.warren.thump:Thump:$thump_version"
+    compile "chat.willow.thump:Thump:$thump_version"
 }
 
 minecraft {
@@ -120,23 +120,23 @@ shadowJar {
 
     mergeServiceFiles()
 
-    relocate 'org.slf4j', 'engineer.carrot.warren.thump.slf4j'
-    relocate 'kotlin', 'engineer.carrot.warren.thump.repack.kotlin'
-    relocate 'okhttp3', 'engineer.carrot.warren.thump.curse.repack.okhttp3'
-    relocate 'javax.websocket', 'engineer.carrot.warren.thump.curse.repack.javax.websocket'
-    relocate 'okio', 'engineer.carrot.warren.thump.curse.repack.okio'
-    relocate 'org.glassfish.tyrus', 'engineer.carrot.warren.thump.curse.repack.org.glassfish.tyrus'
-    relocate 'retrofit2', 'engineer.carrot.warren.thump.curse.repack.retrofit2'
-    relocate 'com.feed_the_beast.javacurselib', 'engineer.carrot.warren.thump.curse.repack.com.feed_the_beast.javacurselib'
-    relocate 'lombok', 'engineer.carrot.warren.thump.curse.repack.lombock'
-    relocate 'com.google.gson', 'engineer.carrot.warren.thump.curse.repack.gson'
+    relocate 'org.slf4j', 'chat.willow.thump.slf4j'
+    relocate 'kotlin', 'chat.willow.thump.repack.kotlin'
+    relocate 'okhttp3', 'chat.willow.thump.curse.repack.okhttp3'
+    relocate 'javax.websocket', 'chat.willow.thump.curse.repack.javax.websocket'
+    relocate 'okio', 'chat.willow.thump.curse.repack.okio'
+    relocate 'org.glassfish.tyrus', 'chat.willow.thump.curse.repack.org.glassfish.tyrus'
+    relocate 'retrofit2', 'chat.willow.thump.curse.repack.retrofit2'
+    relocate 'com.feed_the_beast.javacurselib', 'chat.willow.thump.curse.repack.com.feed_the_beast.javacurselib'
+    relocate 'lombok', 'chat.willow.thump.curse.repack.lombock'
+    relocate 'com.google.gson', 'chat.willow.thump.curse.repack.gson'
 
     manifest {
         from jenkinsManifest, gitManifest
     }
 
     dependencies {
-        exclude(dependency("engineer.carrot.warren.thump:Thump:$thump_version"))
+        exclude(dependency("chat.willow.thump:Thump:$thump_version"))
     }
 }
 

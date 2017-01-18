@@ -1,13 +1,13 @@
-package engineer.carrot.warren.thump.curse;
+package chat.willow.thump.curse;
 
 import com.feed_the_beast.javacurselib.utils.CurseGUID;
 import com.feed_the_beast.javacurselib.websocket.WebSocket;
 import com.feed_the_beast.javacurselib.websocket.messages.handler.tasks.Task;
 import com.feed_the_beast.javacurselib.websocket.messages.notifications.ConversationMessageNotification;
-import engineer.carrot.warren.thump.api.IThumpMinecraftSink;
-import engineer.carrot.warren.thump.helper.LogHelper;
-import engineer.carrot.warren.thump.helper.StringHelper;
-import engineer.carrot.warren.thump.helper.TokenHelper;
+import chat.willow.thump.api.IThumpMinecraftSink;
+import chat.willow.thump.helper.LogHelper;
+import chat.willow.thump.helper.StringHelper;
+import chat.willow.thump.helper.TokenHelper;
 import net.minecraft.util.text.TextComponentString;
 
 import javax.annotation.Nonnull;

@@ -1,11 +1,11 @@
-package engineer.carrot.warren.thump.curse
+package chat.willow.thump.curse
 
-import engineer.carrot.warren.thump.api.IThumpMinecraftSink
-import engineer.carrot.warren.thump.api.IThumpServicePlugin
-import engineer.carrot.warren.thump.api.ThumpPluginContext
-import engineer.carrot.warren.thump.api.ThumpServicePlugin
-import engineer.carrot.warren.thump.curse.command.CursePluginCommandHandler
-import engineer.carrot.warren.thump.curse.helper.LogHelper
+import chat.willow.thump.api.IThumpMinecraftSink
+import chat.willow.thump.api.IThumpServicePlugin
+import chat.willow.thump.api.ThumpPluginContext
+import chat.willow.thump.api.ThumpServicePlugin
+import chat.willow.thump.curse.command.CursePluginCommandHandler
+import chat.willow.thump.curse.helper.LogHelper
 import net.minecraft.util.text.ITextComponent
 
 @ThumpServicePlugin

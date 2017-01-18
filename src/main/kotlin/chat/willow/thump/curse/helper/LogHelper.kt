@@ -1,6 +1,6 @@
-package engineer.carrot.warren.thump.curse.helper
+package chat.willow.thump.curse.helper
 
-import engineer.carrot.warren.thump.Reference
+import chat.willow.thump.Reference
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
 
