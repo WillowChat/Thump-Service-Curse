@@ -26,18 +26,12 @@ repositories {
     mavenCentral()
 
     maven {
-        name 'CarrotCodes CI'
-        url "https://maven.ci.carrot.codes"
-    }
-
-    maven {
-        name = "JetBrains Kotlin EAP"
-        url = "http://dl.bintray.com/kotlin/kotlin-eap-1.1"
-    }
-
-    maven {
         name = "Gradle repo"
         url = "https://repo.gradle.org/gradle/repo"
+    }
+
+    maven {
+        url "https://maven.ci.carrot.codes/"
     }
 
     maven {

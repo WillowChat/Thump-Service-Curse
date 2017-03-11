@@ -4,8 +4,8 @@ import chat.willow.thump.api.ICommandHandler
 import net.minecraft.command.ICommandSender
 
 class CursePluginCommandHandler : ICommandHandler {
-    override val command = "curse"
-    override val usage = "$command ???"
+    override fun getCommand() = "curse"
+    override fun getUsage() = "$command ???"
 
     override fun processParameters(sender: ICommandSender, parameters: Array<String>) {
 
