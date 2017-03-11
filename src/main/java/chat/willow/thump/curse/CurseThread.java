@@ -5,6 +5,7 @@ import com.feed_the_beast.javacurselib.common.enums.DevicePlatform;
 import com.feed_the_beast.javacurselib.data.Apis;
 import com.feed_the_beast.javacurselib.rest.RestUserEndpoints;
 import com.feed_the_beast.javacurselib.service.contacts.contacts.ContactsResponse;
+import com.feed_the_beast.javacurselib.service.conversations.conversations.ConversationCreateMessageRequest;
 import com.feed_the_beast.javacurselib.service.groups.groups.GroupInvitationRedeemResponse;
 import com.feed_the_beast.javacurselib.service.logins.login.LoginRequest;
 import com.feed_the_beast.javacurselib.service.logins.login.LoginResponse;
@@ -28,6 +29,7 @@ public class CurseThread extends Thread {
     private ContactsResponse contacts;
     private CreateSessionResponse session;
     private CurseIntegration integration;
+    private CurseGUID machineKey;
 
     public CurseThread (CurseIntegration integration) {
         this.integration = integration;
@@ -44,7 +46,8 @@ public class CurseThread extends Thread {
             endpoints.setAuthToken(loginResponse.session.token);
             endpoints.setupEndpoints();
             contacts = endpoints.contacts.get().get();
-            session = endpoints.session.create(new CreateSessionRequest(CurseGUID.newRandomUUID(), DevicePlatform.UNKNOWN)).get();
+            machineKey = CurseGUID.newRandomUUID();
+            session = endpoints.session.create(new CreateSessionRequest(machineKey, DevicePlatform.UNKNOWN)).get();
             Optional<CurseGUID> id = contacts.getChannelIdbyNames(integration.serverName, integration.channelName, true);
             if (id.isPresent()) {
                 joinServer(id.get(), loginResponse);
@@ -66,7 +69,7 @@ public class CurseThread extends Thread {
             latch.await();
         } catch (InterruptedException | ExecutionException | URISyntaxException e) {
             try {
-                webSocket.sendMessage(channel, "Thump Curse bridge Disconnecting");
+                sendMessage(channel, "Thump Curse bridge Disconnecting");
             } catch (Exception e2) {
                 //noop
             }
@@ -84,6 +87,16 @@ public class CurseThread extends Thread {
         LogHelper.INSTANCE.info("starting curse websocket connection");
         webSocket.start();
         LogHelper.INSTANCE.info("curse websocket connection started");
-        webSocket.sendMessage(channel, "Thump Curse bridge Connected!");
+        sendMessage(channel, "Thump Curse bridge Connected!");
     }
+    public void sendMessage(CurseGUID id, String message) {
+        ConversationCreateMessageRequest req = new ConversationCreateMessageRequest();
+        req.body = message;
+        req.machineKey=machineKey;
+        req.clientID=CurseGUID.newRandomUUID();//TODO figure out if this should actually be random
+        req.attachmentID = CurseGUID.newInstance("00000000-0000-0000-0000-000000000000");
+        req.attachmentRegionID=0;
+        endpoints.conversations.postMessage(id,req);//TODO check results and handle throttling
+    }
+
 }
