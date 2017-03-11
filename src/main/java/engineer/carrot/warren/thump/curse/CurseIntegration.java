@@ -65,7 +65,7 @@ public class CurseIntegration {
             if (message == null) {
                 LogHelper.INSTANCE.info("Don't attempt to send null messages!!!!!");
             } else {
-                thread.webSocket.sendMessage(thread.channel, message);
+                thread.sendMessage(thread.channel, message);
             }
         } else {
             LogHelper.INSTANCE.error("curse thread not configured. Could not send message {} to curse", message);
