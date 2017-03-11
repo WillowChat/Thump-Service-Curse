@@ -1,17 +1,16 @@
 package engineer.carrot.warren.thump.curse
 
-import engineer.carrot.warren.thump.api.IThumpMinecraftSink
-import engineer.carrot.warren.thump.api.IThumpServicePlugin
-import engineer.carrot.warren.thump.api.ThumpPluginContext
-import engineer.carrot.warren.thump.api.ThumpServicePlugin
+import engineer.carrot.warren.thump.api.*
 import engineer.carrot.warren.thump.curse.command.CursePluginCommandHandler
 import engineer.carrot.warren.thump.curse.helper.LogHelper
 import net.minecraft.util.text.ITextComponent
 
 @ThumpServicePlugin
 object CursePlugin : IThumpServicePlugin {
-    override val id = "curse"
-    override val commandHandler = CursePluginCommandHandler()
+    override fun getId() = "curse"
+    override fun getCommandHandler() = storedCommandHandler
+    private val storedCommandHandler = CursePluginCommandHandler()
+
     private lateinit var sink: IThumpMinecraftSink
     private lateinit var username: String
     private lateinit var integration: CurseIntegration
